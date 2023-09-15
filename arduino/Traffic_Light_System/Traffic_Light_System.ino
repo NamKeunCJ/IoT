@@ -1,5 +1,5 @@
 int led_verd=13;
-int led_amar=14;
+int led_amar=12;
 int led_rojo=11;
 void setup() {
   // put your setup code here, to run once:
@@ -19,7 +19,9 @@ void loop() {
   digitalWrite(led_rojo,HIGH);
   delay(1000); //1000=1 SEG
   digitalWrite(led_rojo,LOW);
-  
+  digitalWrite(led_amar,HIGH);
+  delay(1000); //1000=1 SEG
+  digitalWrite(led_amar,LOW); 
   
 
 }
