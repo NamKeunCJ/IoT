@@ -13,8 +13,16 @@ def create_zone():
 
     print('New zones has been created successfully')
 
-    #Close connection
-    con.close()
+    
+def list_zones():
+    os.system('cls')
+    query_list_zones='SELECT * FROM zones'
+    cur.execute(query_list_zones)
+    data = cur.fetchall()
+    print(data)
 
 #Main 
 create_zone()
+list_zones()
+#Close connection
+con.close()
