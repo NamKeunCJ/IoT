@@ -35,12 +35,55 @@ sensors_model_query='''
         status BOOLEAN Default true,
         created_at TIMESTAMP DEFAULT (datetime('now','localtime')),
         update_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+        delete_at TIMESTAMP NULL,
+        zone_id INTEGER NOT NULL,
+        FOREIGN KEY (zone_id) REFERENCES zones(id)
+    );
+'''
+types_model_query='''
+    CREATE TABLE IF NOT EXISTS types(
+        id INTEGER PRIMARY KEY,
+        type TEXT NOT NULL,
+        measurement TEXT NULL,
+        status BOOLEAN Default true,
+        created_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+        update_at TIMESTAMP DEFAULT (datetime('now','localtime')),
         delete_at TIMESTAMP NULL
     );
 '''
+
+sensors_types_model_query='''
+    CREATE TABLE IF NOT EXISTS sensors_types(
+        id INTEGER PRIMARY KEY,
+        status BOOLEAN Default true,
+        created_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+        update_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+        delete_at TIMESTAMP NULL,
+        sensor_id INTEGER NOT NULL,
+        type_id INTEGER NOT NULL,
+        FOREIGN KEY (sensor_id) REFERENCES sensors(id),
+        FOREIGN KEY (type_id) REFERENCES types(id)
+    );
+'''
+sensors_datas_model_query='''
+    CREATE TABLE IF NOT EXISTS sensors_datas(
+        id INTEGER PRIMARY KEY,
+        data DOUBLE NOT NULL,
+        status BOOLEAN Default true,
+        created_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+        update_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+        delete_at TIMESTAMP NULL,
+        sensor_type_id INTEGER NOT NULL,
+        FOREIGN KEY (sensor_type_id) REFERENCES sensors_types(id)
+    );
+'''
+
 #5 Execute queries
 cur.execute(zones_model_query)
 cur.execute(sensors_model_query)
+cur.execute(types_model_query)
+cur.execute(sensors_types_model_query)
+cur.execute(sensors_datas_model_query)
 
 #7 save changes in DB => Puash to database
 con.commit()
