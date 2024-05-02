@@ -9,8 +9,8 @@ conn.write(b'1')
 time.sleep(1)
 
 #Turn off led 
-conn.write(b'1')
-time.sleep(1)
+conn.write(b'0')
+time.sleep(5)
 
 #Close connection
 conn.close()

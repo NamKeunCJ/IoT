@@ -2,27 +2,73 @@ from database import con, cur
 import os 
 
 def create_zone():
-    new_zone='''
+    os.system('clear')
+    zone_name =input('Zone name: ')
+    zone_address =input('Zone address: ')
+    zone_gps_url =input('Zone gps_url: ')
+    zone_description =input('Zone description: ')
+    new_zone=f'''
     INSERT INTO zones 
         (name,address,gps_url,description)
     VALUES
-        ('CESMAG','SEDECATAMBUCO','bbbb','ggggg')
+        ('{zone_name}','{zone_address}','{zone_gps_url}','{zone_description}')
     '''
     con.execute(new_zone)
     con.commit()
 
     print('New zones has been created successfully')
-
+    key =input('Press any key to continue... ')
+    #os.system('Pause')
+    main_menu()
     
 def list_zones():
-    os.system('cls')
-    query_list_zones='SELECT * FROM zones'
+    os.system('clear')
+
+    query_list_zones = 'SELECT id, name, address FROM zones'
     cur.execute(query_list_zones)
     data = cur.fetchall()
-    print(data)
+    
+    print("-" * 50)
+    print("{:<10} {:<20} {:<10}".format("ID", "NAME", "ADDRESS"))
+    print("-" * 50)
+
+    for row in data:
+        print("{:<10} {:<20} {:<10}".format(row[0],row[1],row[2]))
+
+    print('\n')
+    #print(data)
+
+    key = input('Press any key to continue')
+    main_menu()
+
+
+
+def main_menu():
+    opt_status = True
+    os.system('clear')
+    print("Main Menu")
+    print('1) Register zone')
+    print('2) Lister zone')
+    print('3) Register sensor')
+    print('4) salir')
+
+    while opt_status:
+        opt = int(input('Press any option:'))
+        if opt >=1 and opt <=4:
+             opt_status = False
+        else: 
+           print('Invalid option') 
+
+    if opt == 1:
+        create_zone()
+    elif opt == 2:
+        list_zones()
+    elif opt == 4:
+        print('See you soon')
+    else:
+        print('No more options')
 
 #Main 
-create_zone()
-list_zones()
+main_menu()
 #Close connection
 con.close()

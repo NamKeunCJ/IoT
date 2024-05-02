@@ -1,5 +1,5 @@
 // C++ code
-// Maria Camila Rueda Prado
+// Maria Camila Rueda Prado - Juan Esteban Tiraca - Juan Pablo Lopez - David Esteban Pantoja
 int led4_rojo=11;
 int led4_amarillo=12;
 int led4_verde=13;
